@@ -1,0 +1,18 @@
+<% @user.each_with_index do |user, index| %>
+    <tr>
+      <td><%= index +=1 %></td>
+      <td><%= user.name %></td>
+      <td>
+        <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+                    "data-sid" => current_user.id, "data-rip" => user.id %>
+      </td>
+    </tr>
+<% end %>
+<% if user_signed_in? %>
+  <p>Welcome <%= current_user.email %></p>
+  
+  <%= link_to 'Logged In [click to logout]', destroy_user_session_path, :method => :delete %>
+<% else %>
+  <p>You are not signed in.</p>
+  <%= link_to 'Login', new_user_session_path %>
+<% end %>

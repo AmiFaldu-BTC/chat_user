@@ -1,0 +1,10 @@
+.client_request {
+    width: 900px;
+    height: 30px;
+}
+
+.tab-pane{
+  height:300px;
+  overflow-y:scroll;
+  width:100%;
+}

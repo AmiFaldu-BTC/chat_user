@@ -1,21 +1,13 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user!
-  respond_to :html, :js
-  
-  enable_sync
-  
-  def index
-    @messages = Message.all
-    @new_message = current_user.messages.build
-  end
+  before_filter :authenticate_user!
 
   def create
-    @message = current_user.messages.build(message_params)
-    if @message.save
-      sync_new @message
-    end
+    @conversation = Conversation.find(params[:conversation_id])
+    @message = @conversation.messages.build(message_params)
+    @message.user_id = current_user.id
+    @message.save!
 
-    respond_with(@messages)
+    @path = conversation_path(@conversation)
   end
 
   private
